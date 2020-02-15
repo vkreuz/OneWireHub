@@ -92,18 +92,6 @@ void DS18B20::setTemperatureRaw(const int16_t value_raw)
             value |= 0xFF00; // upper byte is signum (1)
         }
     }
-    else
-    {
-        // normal 18b20, uses always 12bit mode! also 9,10,11,12 bit possible bitPosition seems to stay the same
-        if (value >= 0)
-        {
-            value &= 0x07FF; // upper 5 bits are signum
-        }
-        else
-        {
-            value |= 0xF800;
-        }
-    }
 
     scratchpad[0] = reinterpret_cast<uint8_t *>(&value)[0];
     scratchpad[1] = reinterpret_cast<uint8_t *>(&value)[1];
@@ -132,4 +120,25 @@ int  DS18B20::getTemperature(void) const
 int16_t DS18B20::getTemperatureRaw() const
 {
     return static_cast<int16_t>((scratchpad[1] << 8) | scratchpad[0]);
+}
+
+
+int8_t DS18B20::getHighTrigger() const
+{
+    return scratchpad[2];
+}
+
+int8_t DS18B20::getLowTrigger() const
+{
+    return scratchpad[3];
+}
+
+void DS18B20::setHighTrigger(int8_t value)
+{
+    scratchpad[2] = value;
+}
+
+void DS18B20::setLowTrigger(int8_t value)
+{
+    scratchpad[3] = value;
 }

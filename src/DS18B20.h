@@ -32,6 +32,12 @@ public:
     void setTemperature(int8_t value_degC); // -55 to +125 degC
     int  getTemperature() const;
 
+    int8_t getHighTrigger() const;
+    void setHighTrigger(int8_t value);
+    int8_t getLowTrigger() const;
+    void setLowTrigger(int8_t value);
+
+
     void    setTemperatureRaw(int16_t value_raw);
     int16_t getTemperatureRaw() const;
 
